@@ -1,0 +1,3 @@
+[submodule "blogWeb"]
+	path = blogWeb
+	url = https://github.com/Ferysuryanta/blog-app.git
