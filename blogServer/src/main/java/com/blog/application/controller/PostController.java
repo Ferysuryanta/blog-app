@@ -2,6 +2,7 @@ package com.blog.application.controller;
 
 import com.blog.application.model.Post;
 import com.blog.application.service.PostService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,15 @@ public class PostController {
             var post = postService.getPostById(postId);
             return ResponseEntity.ok(post);
         } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @PutMapping("/{postId}/like")
+    public ResponseEntity<?> likePost(@PathVariable Long postId) {
+        try {
+            postService.likePost(postId);
+            return ResponseEntity.ok(new String[]{"Post liked successfuly"});
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }

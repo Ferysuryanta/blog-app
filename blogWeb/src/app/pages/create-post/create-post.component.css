@@ -1,0 +1,9 @@
+.center-card {
+  max-width: 600px;
+  margin: 10px auto auto;
+  padding: 30px;
+}
+
+mat-form-field {
+  width: 100%;
+}
