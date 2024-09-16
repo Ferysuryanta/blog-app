@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PostController {
 
     @Autowired
@@ -56,6 +56,14 @@ public class PostController {
             return ResponseEntity.ok(new String[]{"Post liked successfuly"});
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchByName(@PathVariable String name) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(postService.searchByName(name));
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
 }
